@@ -18,16 +18,16 @@
 
 ### Misi 1
 #### 1. Identifikasi Perangkat
-**Narya: Berfungsi sebagai DNS Server.**
-**Vilya: Berfungsi sebagai DHCP Server.**
-**Web Servers: Palantir  dan IronHills.**
-**Client (Pasukan):**
-    *Khamul: 5 host (Target/Burnice).*
-    *Cirdan: 20 host (Lycaon).*
-    *Isildur: 30 host (Policeboo).*
-    *Durin: 50 host (Caesar).*
-    *Gilgalad: 100 host (Ellen).*
-    *Elendil: 200 host (Jane).*
+- **Narya: Berfungsi sebagai DNS Server.**
+- **Vilya: Berfungsi sebagai DHCP Server.**
+- **Web Servers: Palantir  dan IronHills.**
+- **Client (Pasukan):**
+    * Khamul: 5 host (Target/Burnice).
+    * Cirdan: 20 host (Lycaon).
+    * Isildur: 30 host (Policeboo).
+    * Durin: 50 host (Caesar).
+    * Gilgalad: 100 host (Ellen).
+    * Elendil: 200 host (Jane).
 
 #### 2. VLSM (Pohon Subnet)
 ![tree](assets/Tree.png)
