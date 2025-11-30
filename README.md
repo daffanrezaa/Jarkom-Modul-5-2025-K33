@@ -1,8 +1,8 @@
 ## Anggota Kelompok
-| No | Nama                       | NRP         | Pembagian Tugas  |
-|----|----------------------------|-------------|------------------|
-| 1  | Aditya Reza Daffansyah     | 5027241034  | 1 - 10           | 
-| 2  | I Gede Bagus Saka Sinatrya |	5027241088  | 11 - 20          | 
+| No | Nama                       | NRP         |   
+|----|----------------------------|-------------|
+| 1  | Aditya Reza Daffansyah     | 5027241034  | 
+| 2  | I Gede Bagus Saka Sinatrya |	5027241088  | 
 
 # Laporan Resmi Praktikum Jarkom
 
@@ -18,8 +18,22 @@
 
 ### Misi 1
 #### 1. Identifikasi Perangkat
+**Narya: Berfungsi sebagai DNS Server.**
+**Vilya: Berfungsi sebagai DHCP Server.**
+**Web Servers: Palantir  dan IronHills.**
+**Client (Pasukan):**
+    *Khamul: 5 host (Target/Burnice).*
+    *Cirdan: 20 host (Lycaon).*
+    *Isildur: 30 host (Policeboo).*
+    *Durin: 50 host (Caesar).*
+    *Gilgalad: 100 host (Ellen).*
+    *Elendil: 200 host (Jane).*
+
 #### 2. VLSM (Pohon Subnet)
+![tree](assets/Tree.png)
+
 #### 3. Konfigurasi Rute
+
 #### 4. Konfigurasi Service
 
 
