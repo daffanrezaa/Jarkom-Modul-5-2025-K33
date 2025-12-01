@@ -30,18 +30,22 @@
     * Elendil: 200 host (Jane).
 
 Gambar Topologi
+
 ![topologi](assets/topologi.png)
 
 ### 2. VLSM (Pohon Subnet)
 Gambar topologi setelah dilakukan pembagian subnet dengan VLSM.
+
 ![topologi](assets/topologi_vlsm.png)
 
 Dari data subnet yang telah kita gabungkan pada topologi di atas kita mendapat bahwa terdapat 13 kelompok, dan dibawah ini adalah pembagian IP berdasarkan pengelompokkan subnet di atas.
+
 ![tree](assets/Tree.png)
 
 ![ip](assets/ip.png)
 
 Pembagian Rute
+
 ![rute](assets/rute.png)
 
 ### 3. Konfigurasi Rute
@@ -107,13 +111,17 @@ Bagian ini berfokus pada instalasi dan konfigurasi aplikasi jaringan (Layer 7) s
 Dokumentasi:
 
 DHCP Relay
+
 ![dhcp](assets/dhcp.png)
 
 DNS
+
 ![dns](assets/dns.png)
 
 Hostname
+
 ![hostname](assets/html-hostname.png)
+
 ![hostname](assets/index-html.png)
 
 
@@ -135,9 +143,11 @@ Hostname
 Dokumentasi:
 
 Tes Gagal
+
 ![gagal](assets/2-2_gagal.png)
 
 Tes Sukses
+
 ![sukses](assets/2-2_sukses.png)
 
 ### 3. Batasi Akses DNS
@@ -151,9 +161,11 @@ Tes Sukses
 Dokumentasi:
 
 Tes Gagal
+
 ![gagal](assets/2-3_gagal.png)
 
 Tes Sukses
+
 ![sukses](assets/2-3_sukses.png)
 
 ### 4. Filter Akses Berbasis Waktu
@@ -164,6 +176,7 @@ Tes Sukses
    * Jika hari saat ini adalah Sabtu atau Minggu, paket akan melewati aturan drop tersebut dan diizinkan oleh aturan berikutnya (Accept Faksi).
 
 Dokumentasi Hasil
+
 ![tanggal](assets/2-4_tanggal.png)
 
 ### 5. Filter Akses Berbasis Jam
@@ -175,9 +188,10 @@ Dokumentasi Hasil
    * Semua akses di luar jam dan subnet tersebut akan ditolak oleh aturan Catch-all DROP di akhir script.
 
 Dokumentasi Hasil
+
 ![jam](assets/2-5_jam.png)
 
-###6. Proteksi Port Scanning
+### 6. Proteksi Port Scanning
 * File Konfigurasi: 2-6.sh (Pada Palantir) 
 * Misi: Mendeteksi dan memblokir serangan Port Scanning (mencoba mengakses >15 port dalam 20 detik).
 * Penjelasan: Kami menggunakan modul -m recent untuk melacak perilaku koneksi.
@@ -187,6 +201,7 @@ Dokumentasi Hasil
    * Block ICMP: Kami juga mengecek daftar portscan pada protokol ICMP. Jika IP sudah terlanjur di-blacklist karena scan TCP, maka PING dari IP tersebut juga akan diblokir.
 
 Dokumentasi Hasil
+
 ![block_elendil](assets/2-6_block_elendil.png)
 
 ### 7. Limitasi Koneksi
@@ -196,6 +211,7 @@ Dokumentasi Hasil
    * Jika jumlah koneksi dari satu IP melebihi 3 (--connlimit-above 3), paket ke-4 dan seterusnya akan ditolak dengan status REJECT (mengirim sinyal tcp-reset ke pengirim agar koneksi putus seketika).
 
 Dokumentasi Hasil:
+
 ![conlimit](assets/2-7_conlimit.png)
 
 ### 8. Redireksi Traffic
@@ -207,6 +223,7 @@ Dokumentasi Hasil:
    * Akibatnya, Vilya merasa mengirim data ke Khamul, namun data tersebut sebenarnya diterima oleh IronHills.
 
 Dokumentasi Hasil:
+
 ![sihir](assets/2-8_sihir.png)
 
 ## Misi 3
@@ -220,4 +237,5 @@ Dokumentasi Hasil:
     -   * Kami menggunakan spesifik subnet /29 agar subnet Durin (yang ada di router yang sama) tidak ikut terblokir.
 
 Dokumentasi Hasil
+
 ![isolasi](assets/3-1.png)
