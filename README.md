@@ -16,8 +16,8 @@
 - [Misi 3](#misi-3)
 
 
-### Misi 1
-#### 1. Identifikasi Perangkat
+## Misi 1
+### 1. Identifikasi Perangkat
 - **Narya: Berfungsi sebagai DNS Server.**
 - **Vilya: Berfungsi sebagai DHCP Server.**
 - **Web Servers: Palantir  dan IronHills.**
@@ -32,7 +32,7 @@
 Gambar Topologi
 ![topologi](assets/topologi.png)
 
-#### 2. VLSM (Pohon Subnet)
+### 2. VLSM (Pohon Subnet)
 Gambar topologi setelah dilakukan pembagian subnet dengan VLSM.
 ![topologi](assets/topologi_vlsm.png)
 
@@ -44,9 +44,9 @@ Dari data subnet yang telah kita gabungkan pada topologi di atas kita mendapat b
 Pembagian Rute
 ![rute](assets/rute.png)
 
-#### 3. Konfigurasi Rute
+### 3. Konfigurasi Rute
 
-**1. router.sh** 
+#### **1. router.sh** 
 * Script ini adalah skrip gabungan yang berisi konfigurasi infrastruktur untuk 7 Router sekaligus (Osgiliath, Moria, Wilderland, Rivendell, Minastir, Pelargir, dan AnduinBanks).
 
 **Fungsi Rute:**
@@ -58,49 +58,49 @@ Pembagian Rute
    * Mengaktifkan SNAT (Source NAT) di Osgiliath untuk mengizinkan akses internet tanpa Masquerade .
    * Mengaktifkan ip_forward pada semua router.
 
-#### 4. Konfigurasi Service
+### 4. Konfigurasi Service
 Bagian ini berfokus pada instalasi dan konfigurasi aplikasi jaringan (Layer 7) seperti DHCP, DNS, dan Web Server. Script ini dijalankan setelah routing dan internet aktif.
 
-**1. vilya.sh**
+#### **1. vilya.sh**
 * Lokasi: Node Vilya.
 * Fungsi:
    * Menginstall isc-dhcp-server.
    * Mengkonfigurasi /etc/dhcp/dhcpd.conf untuk membagikan IP otomatis, Gateway, dan DNS ke subnet Client (A1, A2, A4, A5).
 
-**2. narya.sh**
+#### **2. narya.sh**
 * Lokasi: Node Narya.
 * Fungsi:
    * Menginstall bind9.
    * Mengatur Forwarders ke Google (8.8.8.8) untuk koneksi internet.
    * Membuat Local Zone agar server internal bisa diakses menggunakan nama domain.
 
-**3. palantir.sh**
+#### **3. palantir.sh**
 * Lokasi: Node Palantir (Subnet A12).
 * Fungsi:
    * Menginstall apache2.
    * Membuat halaman web kustom "Welcome to Palantir".
    * Mengatur IP statis .214 (/30).
 
-**4. ironhills.sh**
+#### **4. ironhills.sh**
 * Lokasi: Node IronHills (Subnet A6).
 * Fungsi:
    * Menginstall apache2.
    * Membuat halaman web kustom "Welcome to IronHills".
    * Mengatur IP statis .210 (/30).
 
-**5. minastir.sh**
+#### **5. minastir.sh**
 * Lokasi: Router Minastir.
 * Fungsi: Menginstall isc-dhcp-relay untuk meneruskan permintaan IP dari Client Elendil & Isildur ke Vilya.
 
-**6. rivendell.sh**
+#### **6. rivendell.sh**
 * Lokasi: Router Rivendell.
 * Fungsi: Menginstall isc-dhcp-relay sebagai perantara (Relay) utama yang terhubung langsung ke Vilya.
 
-**7. wilderland.sh**
+#### **7. wilderland.sh**
 * Lokasi: Router Wilderland.
 * Fungsi: Menginstall isc-dhcp-relay untuk meneruskan permintaan IP dari Client Durin & Khamul.
 
-**8. anduinbanks.sh**
+#### **8. anduinbanks.sh**
 * Lokasi: Router AnduinBanks.
 * Fungsi: Menginstall isc-dhcp-relay untuk meneruskan permintaan IP dari Client Gilgalad & Cirdan.
 
@@ -117,14 +117,14 @@ Hostname
 ![hostname](assets/index-html.png)
 
 
-### Misi 2
+## Misi 2
 
-#### 1. Routing Internet dengan `SNAT`
+### 1. Routing Internet dengan `SNAT`
 * File Konfigurasi: router.sh (Pada Osgiliath) 
 * Misi: Menghubungkan jaringan Aliansi ke Internet (Valinor) tanpa menggunakan target MASQUERADE.
 * Penjelasan: Alih-alih menggunakan MASQUERADE (yang dinamis), kami menggunakan SNAT (Source Network Address Translation) yang statis. Kami mengubah alamat IP sumber paket yang keluar dari interface eth0 menjadi IP Publik Osgiliath (192.168.122.210).
 
-#### 2. Blokir `ICMP` (ping) ke Vilya
+### 2. Blokir `ICMP` (ping) ke Vilya
 * File Konfigurasi: 2-2.sh (Pada Vilya) 
 * Misi: Melindungi Vilya (DHCP Server) dari pemindaian ping, namun Vilya tetap bisa melakukan ping ke luar.
 * Penjelasan:
@@ -140,7 +140,7 @@ Tes Gagal
 Tes Sukses
 ![sukses](assets/2-2_sukses.png)
 
-#### 3. Batasi Akses DNS
+### 3. Batasi Akses DNS
 * File Konfigurasi: 2-3.sh (Pada Narya)
 * Misi: Mencegah kebocoran informasi topologi dengan membatasi akses DNS hanya untuk Vilya.
 * Penjelasan: Kami menerapkan prinsip Whitelist.
@@ -156,7 +156,7 @@ Tes Gagal
 Tes Sukses
 ![sukses](assets/2-3_sukses.png)
 
-#### 4. Filter Akses Berbasis Waktu
+### 4. Filter Akses Berbasis Waktu
 * File Konfigurasi: 2-4.sh (Pada IronHills) 
 * Misi: Membatasi akses server IronHills hanya pada hari Sabtu dan Minggu.
 * Penjelasan: Kami menggunakan modul -m time dengan parameter --weekdays.
@@ -166,7 +166,7 @@ Tes Sukses
 Dokumentasi Hasil
 ![tanggal](assets/2-4_tanggal.png)
 
-#### 5. Filter Akses Berbasis Jam
+### 5. Filter Akses Berbasis Jam
 * File Konfigurasi: 2-5.sh (Pada Palantir) 
 * Misi: Membatasi akses server Palantir berdasarkan jam operasional Ras.
 * Penjelasan: Kami menggunakan parameter --timestart dan --timestop untuk menentukan jendela waktu akses.
@@ -177,7 +177,7 @@ Dokumentasi Hasil
 Dokumentasi Hasil
 ![jam](assets/2-5_jam.png)
 
-#### 6. Proteksi Port Scanning
+###6. Proteksi Port Scanning
 * File Konfigurasi: 2-6.sh (Pada Palantir) 
 * Misi: Mendeteksi dan memblokir serangan Port Scanning (mencoba mengakses >15 port dalam 20 detik).
 * Penjelasan: Kami menggunakan modul -m recent untuk melacak perilaku koneksi.
@@ -189,7 +189,7 @@ Dokumentasi Hasil
 Dokumentasi Hasil
 ![block_elendil](assets/2-6_block_elendil.png)
 
-#### 7. Limitasi Koneksi
+### 7. Limitasi Koneksi
 * File Konfigurasi: 2-7.sh (Pada IronHills) 
 * Misi: Mencegah overload dengan membatasi jumlah koneksi aktif.
 * Penjelasan: Kami menggunakan modul connlimit untuk menghitung koneksi bersamaan (concurrent).
@@ -198,7 +198,7 @@ Dokumentasi Hasil
 Dokumentasi Hasil:
 ![conlimit](assets/2-7_conlimit.png)
 
-#### 8. Redireksi Traffic
+### 8. Redireksi Traffic
 * File Konfigurasi: 2-8.sh 
 * Misi: Membelokkan paket dari Vilya yang menuju Khamul ke IronHills.
 * Penjelasan: Kami menggunakan DNAT (Destination NAT) pada tabel nat chain PREROUTING.
@@ -209,9 +209,9 @@ Dokumentasi Hasil:
 Dokumentasi Hasil:
 ![sihir](assets/2-8_sihir.png)
 
-### Misi 3
+## Misi 3
 
-#### 1. Isolasi Khamul
+### 1. Isolasi Khamul
 * File Konfigurasi: 3-1.sh (Pada Router Wilderland) 
 * Misi: Memutus total akses jaringan subnet Khamul karena pengkhianatan.
 * Penjelasan: Karena Wilderland adalah gateway bagi Khamul, blokir paling efektif dilakukan pada chain FORWARD. Chain ini menangani paket yang lewat melalui router.
