@@ -50,13 +50,13 @@ Pembagian Rute
 Script ini adalah skrip gabungan yang berisi konfigurasi infrastruktur untuk 7 Router sekaligus (Osgiliath, Moria, Wilderland, Rivendell, Minastir, Pelargir, dan AnduinBanks).
 
 **Fungsi Rute:**
--   * IP Addressing: Mengatur IP statis pada seluruh interface router sesuai skema VLSM High Efficiency (/30).
--   * Routing Statis: Mendaftarkan jalur (Next Hop) menuju seluruh subnet client agar paket data bisa tersampaikan dari ujung ke ujung.
--   * Default Route: Mengatur jalur default ke arah Osgiliath (Upstream) untuk akses internet.
+   * IP Addressing: Mengatur IP statis pada seluruh interface router sesuai skema VLSM High Efficiency (/30).
+   * Routing Statis: Mendaftarkan jalur (Next Hop) menuju seluruh subnet client agar paket data bisa tersampaikan dari ujung ke ujung.
+   * Default Route: Mengatur jalur default ke arah Osgiliath (Upstream) untuk akses internet.
 
 **Fungsi Internet (Misi 2.1):**
--   * Mengaktifkan SNAT (Source NAT) di Osgiliath untuk mengizinkan akses internet tanpa Masquerade .
--   * Mengaktifkan ip_forward pada semua router.
+   * Mengaktifkan SNAT (Source NAT) di Osgiliath untuk mengizinkan akses internet tanpa Masquerade .
+   * Mengaktifkan ip_forward pada semua router.
 
 #### 4. Konfigurasi Service
 Bagian ini berfokus pada instalasi dan konfigurasi aplikasi jaringan (Layer 7) seperti DHCP, DNS, dan Web Server. Script ini dijalankan setelah routing dan internet aktif.
@@ -64,29 +64,29 @@ Bagian ini berfokus pada instalasi dan konfigurasi aplikasi jaringan (Layer 7) s
 **1. vilya.sh**
 * Lokasi: Node Vilya.
 * Fungsi:
--   * Menginstall isc-dhcp-server.
--   * Mengkonfigurasi /etc/dhcp/dhcpd.conf untuk membagikan IP otomatis, Gateway, dan DNS ke subnet Client (A1, A2, A4, A5).
+   * Menginstall isc-dhcp-server.
+   * Mengkonfigurasi /etc/dhcp/dhcpd.conf untuk membagikan IP otomatis, Gateway, dan DNS ke subnet Client (A1, A2, A4, A5).
 
 **2. narya.sh**
 * Lokasi: Node Narya.
 * Fungsi:
--   * Menginstall bind9.
--   * Mengatur Forwarders ke Google (8.8.8.8) untuk koneksi internet.
--   * Membuat Local Zone agar server internal bisa diakses menggunakan nama domain.
+   * Menginstall bind9.
+   * Mengatur Forwarders ke Google (8.8.8.8) untuk koneksi internet.
+   * Membuat Local Zone agar server internal bisa diakses menggunakan nama domain.
 
 **3. palantir.sh**
 * Lokasi: Node Palantir (Subnet A12).
 * Fungsi:
--   * Menginstall apache2.
--   * Membuat halaman web kustom "Welcome to Palantir".
--   * Mengatur IP statis .214 (/30).
+   * Menginstall apache2.
+   * Membuat halaman web kustom "Welcome to Palantir".
+   * Mengatur IP statis .214 (/30).
 
 **4. ironhills.sh**
 * Lokasi: Node IronHills (Subnet A6).
 * Fungsi:
--   * Menginstall apache2.
--   * Membuat halaman web kustom "Welcome to IronHills".
--   * Mengatur IP statis .210 (/30).
+   * Menginstall apache2.
+   * Membuat halaman web kustom "Welcome to IronHills".
+   * Mengatur IP statis .210 (/30).
 
 **5. minastir.sh**
 * Lokasi: Router Minastir.
@@ -128,9 +128,9 @@ Hostname
 * File Konfigurasi: 2-2.sh (Pada Vilya) 
 * Misi: Melindungi Vilya (DHCP Server) dari pemindaian ping, namun Vilya tetap bisa melakukan ping ke luar.
 * Penjelasan:
--   * Kami mengizinkan trafik UDP port 67 (DHCP) dan trafik ESTABLISHED agar fungsi server tetap berjalan.
--   * Kami memblokir protokol ICMP pada chain INPUT. Ini membuat Vilya tidak membalas ping dari siapapun.
--   * Chain OUTPUT dibiarkan terbuka (ACCEPT), sehingga Vilya tetap bisa mengirim ping ke luar.
+   * Kami mengizinkan trafik UDP port 67 (DHCP) dan trafik ESTABLISHED agar fungsi server tetap berjalan.
+   * Kami memblokir protokol ICMP pada chain INPUT. Ini membuat Vilya tidak membalas ping dari siapapun.
+   * Chain OUTPUT dibiarkan terbuka (ACCEPT), sehingga Vilya tetap bisa mengirim ping ke luar.
 
 Dokumentasi:
 
@@ -144,9 +144,9 @@ Tes Sukses
 * File Konfigurasi: 2-3.sh (Pada Narya)
 * Misi: Mencegah kebocoran informasi topologi dengan membatasi akses DNS hanya untuk Vilya.
 * Penjelasan: Kami menerapkan prinsip Whitelist.
--   * Allow Vilya: Mengizinkan paket TCP/UDP pada port 53 HANYA jika Source IP adalah Vilya (10.80.1.202).
--   * Allow Localhost: Mengizinkan server mengakses dirinya sendiri.
--   * Block All Else: Memblokir akses port 53 dari sumber manapun selain Vilya.
+   * Allow Vilya: Mengizinkan paket TCP/UDP pada port 53 HANYA jika Source IP adalah Vilya (10.80.1.202).
+   * Allow Localhost: Mengizinkan server mengakses dirinya sendiri.
+   * Block All Else: Memblokir akses port 53 dari sumber manapun selain Vilya.
 
 Dokumentasi:
 
@@ -160,8 +160,8 @@ Tes Sukses
 * File Konfigurasi: 2-4.sh (Pada IronHills) 
 * Misi: Membatasi akses server IronHills hanya pada hari Sabtu dan Minggu.
 * Penjelasan: Kami menggunakan modul -m time dengan parameter --weekdays.
--   * Aturan pertama secara eksplisit memblokir (DROP) akses ke port 80 pada hari Senin hingga Jumat (Mon,Tue,Wed,Thu,Fri).
--   * Jika hari saat ini adalah Sabtu atau Minggu, paket akan melewati aturan drop tersebut dan diizinkan oleh aturan berikutnya (Accept Faksi).
+   * Aturan pertama secara eksplisit memblokir (DROP) akses ke port 80 pada hari Senin hingga Jumat (Mon,Tue,Wed,Thu,Fri).
+   * Jika hari saat ini adalah Sabtu atau Minggu, paket akan melewati aturan drop tersebut dan diizinkan oleh aturan berikutnya (Accept Faksi).
 
 Dokumentasi Hasil
 ![tanggal](assets/2-4_tanggal.png)
@@ -170,9 +170,9 @@ Dokumentasi Hasil
 * File Konfigurasi: 2-5.sh (Pada Palantir) 
 * Misi: Membatasi akses server Palantir berdasarkan jam operasional Ras.
 * Penjelasan: Kami menggunakan parameter --timestart dan --timestop untuk menentukan jendela waktu akses.
--   * Faksi Elf (A1 - 10.80.1.0/25): Diizinkan pada pukul 07:00 - 15:00.
--   * Faksi Manusia (A2 - 10.80.0.0/24): Diizinkan pada pukul 17:00 - 23:00.
-_   * Semua akses di luar jam dan subnet tersebut akan ditolak oleh aturan Catch-all DROP di akhir script.
+   * Faksi Elf (A1 - 10.80.1.0/25): Diizinkan pada pukul 07:00 - 15:00.
+   * Faksi Manusia (A2 - 10.80.0.0/24): Diizinkan pada pukul 17:00 - 23:00.
+   * Semua akses di luar jam dan subnet tersebut akan ditolak oleh aturan Catch-all DROP di akhir script.
 
 Dokumentasi Hasil
 ![jam](assets/2-5_jam.png)
@@ -181,10 +181,10 @@ Dokumentasi Hasil
 * File Konfigurasi: 2-6.sh (Pada Palantir) 
 * Misi: Mendeteksi dan memblokir serangan Port Scanning (mencoba mengakses >15 port dalam 20 detik).
 * Penjelasan: Kami menggunakan modul -m recent untuk melacak perilaku koneksi.
--   * Tracking: Setiap koneksi TCP baru didaftarkan ke daftar bernama portscan.
--   * Detection: Jika satu IP tercatat melakukan lebih dari 15 koneksi (--hitcount 15) dalam 20 detik (--seconds 20), paket dilempar ke chain khusus PORTSCAN.
--   * Punishment: Di chain PORTSCAN, IP penyerang di-log dengan prefix PORT_SCAN_DETECTED dan di-DROP.
--   * Block ICMP: Kami juga mengecek daftar portscan pada protokol ICMP. Jika IP sudah terlanjur di-blacklist karena scan TCP, maka PING dari IP tersebut juga akan diblokir.
+   * Tracking: Setiap koneksi TCP baru didaftarkan ke daftar bernama portscan.
+   * Detection: Jika satu IP tercatat melakukan lebih dari 15 koneksi (--hitcount 15) dalam 20 detik (--seconds 20), paket dilempar ke chain khusus PORTSCAN.
+   * Punishment: Di chain PORTSCAN, IP penyerang di-log dengan prefix PORT_SCAN_DETECTED dan di-DROP.
+   * Block ICMP: Kami juga mengecek daftar portscan pada protokol ICMP. Jika IP sudah terlanjur di-blacklist karena scan TCP, maka PING dari IP tersebut juga akan diblokir.
 
 Dokumentasi Hasil
 ![block_elendil](assets/2-6_block_elendil.png)
@@ -193,7 +193,7 @@ Dokumentasi Hasil
 * File Konfigurasi: 2-7.sh (Pada IronHills) 
 * Misi: Mencegah overload dengan membatasi jumlah koneksi aktif.
 * Penjelasan: Kami menggunakan modul connlimit untuk menghitung koneksi bersamaan (concurrent).
--   * Jika jumlah koneksi dari satu IP melebihi 3 (--connlimit-above 3), paket ke-4 dan seterusnya akan ditolak dengan status REJECT (mengirim sinyal tcp-reset ke pengirim agar koneksi putus seketika).
+   * Jika jumlah koneksi dari satu IP melebihi 3 (--connlimit-above 3), paket ke-4 dan seterusnya akan ditolak dengan status REJECT (mengirim sinyal tcp-reset ke pengirim agar koneksi putus seketika).
 
 Dokumentasi Hasil:
 ![conlimit](assets/2-7_conlimit.png)
@@ -202,9 +202,9 @@ Dokumentasi Hasil:
 * File Konfigurasi: 2-8.sh 
 * Misi: Membelokkan paket dari Vilya yang menuju Khamul ke IronHills.
 * Penjelasan: Kami menggunakan DNAT (Destination NAT) pada tabel nat chain PREROUTING.
--   * Kondisi: Jika Paket berasal dari Vilya (-s 10.80.1.202) DAN Tujuannya adalah Subnet Khamul (-d 10.80.1.192/29).
--   * Aksi: Ubah tujuan paket (--to-destination) menjadi IP IronHills (10.80.1.210).
--   * Akibatnya, Vilya merasa mengirim data ke Khamul, namun data tersebut sebenarnya diterima oleh IronHills.
+   * Kondisi: Jika Paket berasal dari Vilya (-s 10.80.1.202) DAN Tujuannya adalah Subnet Khamul (-d 10.80.1.192/29).
+   * Aksi: Ubah tujuan paket (--to-destination) menjadi IP IronHills (10.80.1.210).
+   * Akibatnya, Vilya merasa mengirim data ke Khamul, namun data tersebut sebenarnya diterima oleh IronHills.
 
 Dokumentasi Hasil:
 ![sihir](assets/2-8_sihir.png)
@@ -215,8 +215,8 @@ Dokumentasi Hasil:
 * File Konfigurasi: 3-1.sh (Pada Router Wilderland) 
 * Misi: Memutus total akses jaringan subnet Khamul karena pengkhianatan.
 * Penjelasan: Karena Wilderland adalah gateway bagi Khamul, blokir paling efektif dilakukan pada chain FORWARD. Chain ini menangani paket yang lewat melalui router.
--   * Block Egress: Memblokir semua paket yang berasal dari (-s) subnet Khamul (10.80.1.192/29).
--   * Block Ingress: Memblokir semua paket yang menuju ke (-d) subnet Khamul.
+   * Block Egress: Memblokir semua paket yang berasal dari (-s) subnet Khamul (10.80.1.192/29).
+   * Block Ingress: Memblokir semua paket yang menuju ke (-d) subnet Khamul.
     -   * Kami menggunakan spesifik subnet /29 agar subnet Durin (yang ada di router yang sama) tidak ikut terblokir.
 
 Dokumentasi Hasil
