@@ -46,8 +46,8 @@ Pembagian Rute
 
 #### 3. Konfigurasi Rute
 
-**1. router.sh**
-Script ini adalah skrip gabungan yang berisi konfigurasi infrastruktur untuk 7 Router sekaligus (Osgiliath, Moria, Wilderland, Rivendell, Minastir, Pelargir, dan AnduinBanks).
+**1. router.sh** 
+* Script ini adalah skrip gabungan yang berisi konfigurasi infrastruktur untuk 7 Router sekaligus (Osgiliath, Moria, Wilderland, Rivendell, Minastir, Pelargir, dan AnduinBanks).
 
 **Fungsi Rute:**
    * IP Addressing: Mengatur IP statis pada seluruh interface router sesuai skema VLSM High Efficiency (/30).
