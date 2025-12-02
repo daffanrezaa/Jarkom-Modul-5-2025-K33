@@ -110,7 +110,7 @@ Bagian ini berfokus pada instalasi dan konfigurasi aplikasi jaringan (Layer 7) s
 
 Dokumentasi:
 
-DHCP Relay
+DHCP 
 
 ![dhcp](assets/dhcp.png)
 
